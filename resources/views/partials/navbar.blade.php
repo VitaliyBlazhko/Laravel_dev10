@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('events.index')}}">Events</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('categories.index')}}">Categories</a>
+                </li>
             </ul>
         </div>
     </div>

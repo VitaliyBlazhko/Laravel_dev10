@@ -1,27 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Events')
+@section('title', 'Category')
 
 @section('content')
     <div>
-        <h1>Events page</h1>
-        {{ count($events) }}
+        <h1>Category page</h1>
         <table class="table">
-            @if($events)
+            @if($categories)
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Events</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Created at</th>
                     <th scope="col">Updated at</th>
-
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($events as $event)
+                @foreach($categories as $category)
 
-                    @include('events.partial.raw', ['event' => $event])
+                    @include('categories.partial.raw', ['category' => $category])
                 @endforeach
 
                 </tbody>

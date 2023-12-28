@@ -22,3 +22,12 @@ Route::prefix('/events')->group( function () {
     Route::get('/', [\App\Http\Controllers\EventController::class, 'index'])->name('events.index');
     Route::get('/item/{id}', [\App\Http\Controllers\EventController::class, 'item'])->name('event.item');
 });
+Route::prefix('/categories')->group( function () {
+Route::get('/', [\App\Http\Controllers\CategoryController::class, 'read'])->name('categories.index');
+Route::get('/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('categories.create');
+Route::get('/read', [\App\Http\Controllers\CategoryController::class, 'read'])->name('categories.index');
+Route::get('/read/sample', [\App\Http\Controllers\CategoryController::class, 'readSample'])->name('categories.readSample');
+Route::get('/update/{id}', [\App\Http\Controllers\CategoryController::class, 'update'])->name('categories.update');
+Route::get('/delete/{id}', [\App\Http\Controllers\CategoryController::class, 'delete'])->name('categories.delete');
+Route::get('/delete', [\App\Http\Controllers\CategoryController::class, 'delete'])->name('categories.delete_last');
+});
