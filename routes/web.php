@@ -15,12 +15,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\MainController::class, 'showView'])->name('home');
 Route::prefix('/users')->group( function (){
+    Route::any('/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+    Route::any('/update/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+    Route::any('/delete/{id}', [\App\Http\Controllers\UserController::class, 'delete'])->name('users.delete');
+    Route::any('/events/{id}', [\App\Http\Controllers\UserController::class, 'usersEvents'])->name('users.events');
     Route::get('/', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-    Route::get('/item/{id}', [\App\Http\Controllers\UserController::class, 'item'])->name('user.item');
+    Route::any('/{id}', [\App\Http\Controllers\UserController::class, 'item'])->name('user.item');
+
 });
 Route::prefix('/events')->group( function () {
     Route::get('/', [\App\Http\Controllers\EventController::class, 'index'])->name('events.index');
-    Route::get('/item/{id}', [\App\Http\Controllers\EventController::class, 'item'])->name('event.item');
+    Route::any('/create', [\App\Http\Controllers\EventController::class, 'create'])->name('event.create');
+    Route::any('/update/{id}', [\App\Http\Controllers\EventController::class, 'update'])->name('event.update');
+    Route::any('/delete/{id}', [\App\Http\Controllers\EventController::class, 'delete'])->name('event.delete');
+    Route::any('/{id}', [\App\Http\Controllers\EventController::class, 'item'])->name('event.item');
 });
 Route::prefix('/categories')->group( function () {
 Route::get('/', [\App\Http\Controllers\CategoryController::class, 'read'])->name('categories.index');

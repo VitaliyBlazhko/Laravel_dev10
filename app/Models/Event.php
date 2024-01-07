@@ -17,7 +17,16 @@ class Event extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'event',
-        'description'
+        'user_id',
+        'title',
+        'notes',
+        'dt_start',
+        'dt_end'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+
+    }
 }

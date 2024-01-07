@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'emai',
+        'email',
         'password'
     ];
 
@@ -39,6 +39,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password' => 'hashed'
     ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function lastEvent()
+    {
+        return $this->hasOne(Event::class);
+    }
 }

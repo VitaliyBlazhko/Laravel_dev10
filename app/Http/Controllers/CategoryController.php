@@ -47,8 +47,8 @@ class CategoryController extends Controller
     public function update($id)
     {
         $category = Category::query()->find($id);
-        $category->name = 'Category update 5';
-        $category->description = 'Description for 5';
+        $category->name = 'Category 3';
+        $category->description = 'Description for 3';
         $category->save();
         return Redirect::route('categories.index');
 

@@ -5,6 +5,11 @@
 @section('content')
     <div>
         <h1>Users page</h1>
+        <form action="{{ route('users.create') }}" method="POST">
+            @csrf
+            @method('Post')
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </form>
         {{ count($users) }}
         <table class="table">
             @if($users)
