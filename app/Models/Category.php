@@ -13,4 +13,9 @@ class Category extends Model
         'description'
     ];
     protected $guarded = [''];
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class);
+    }
 }

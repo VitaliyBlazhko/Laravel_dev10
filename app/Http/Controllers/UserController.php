@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -21,27 +22,26 @@ class UserController extends Controller
     public function create()
     {
 
-
-        $user = User::create([
-            'name' => 'Name 1',
-            'email' => 'email1@example.com',
-            'password' => 'password1'
-        ]);
-        $user->save();
-        return Redirect::route('users.index');
+        return Redirect::route('register.index');
     }
 
-    public function update($id)
+    public function update(Request $request)
     {
-        $user = User::query()->findOrFail($id);
-        $user->update([
-            'name' => 'Name 15',
-            'email' => 'email15@example.com',
-            'password' => 'password15'
-        ]);
 
-        $user->save();
-        return Redirect::route('users.index');
+        $data = $request->validate([
+            'id' => ['required', 'exists:users,id'],
+            'name' => ['required', 'string', 'unique:users'],
+            'email' => ['required', 'email', 'string', 'unique:users'],
+            'password' => ['required', 'min:6']
+        ]);
+        $user = User::query()->findOrFail($data['id']);
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
+        return back()->with('success', 'User updated successfully.');
+
     }
 
     public function item($id)
@@ -67,7 +67,7 @@ class UserController extends Controller
     public function delete($id)
     {
 
-            $user = User::query()->find($id)->delete();
+        $user = User::query()->find($id)->delete();
 
         return Redirect::route('users.index');
     }

@@ -8,31 +8,39 @@ use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-//        for ($i = 1; $i <= 10; $i++) {
-//            Category::create([
-//                'name' => 'Category ' . $i,
-//                'description' => 'Description for category ' . $i,
-//            ]);
-//        }
+        $data = $request->validate([
+            'name' => ['required', 'string'],
+            'description' => ['required', 'string']
+        ]);
+
 
         $category = Category::create([
-            'name' => 'Category 10',
-            'description' => 'Description for category 10'
+            'name' => $data['name'],
+            'description' => $data['description']
 
         ]);
 
         $category->save();
-        return Redirect::route('categories.index');
+        return back()->with('success', 'Category created successfully.');
     }
 
     public function read()
     {
-        $categories = Category::query()->get();
+        $categories = Category::all();
 
         return view('categories.index', [
             'categories' => $categories
+        ]);
+    }
+
+    public function item($id)
+    {
+        $category = Category::findOrFail($id);
+
+        return view('categories.item', [
+            'category' => $category
         ]);
     }
 
@@ -44,27 +52,34 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update($id)
+    public function update(Request $request)
     {
-        $category = Category::query()->find($id);
-        $category->name = 'Category 3';
-        $category->description = 'Description for 3';
-        $category->save();
-        return Redirect::route('categories.index');
+        $data = $request->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string']
+        ]);
+
+
+        Category::query()->findOrFail($data['category_id'])->update([
+            'name' => $data['name'],
+            'description' => $data['description']
+
+        ]);
+
+        return back()->with('success', 'Category updated successfully.');
 
 
     }
 
 
-    public function delete($id = null)
+    public function delete($id)
     {
-        if ($id !== null) {
-            $category = Category::query()->find($id)->delete();
-        } else {
-            $category = Category::query()->latest()->first()->delete();
-        }
+
+        $category = Category::query()->findOrFail($id)->delete();
 
         return Redirect::route('categories.index');
     }
+
 
 }

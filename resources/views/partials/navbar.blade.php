@@ -18,6 +18,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('categories.index')}}">Categories</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('register.index')}}">Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('login.index')}}">Authorization</a>
+                </li>
             </ul>
         </div>
     </div>

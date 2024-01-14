@@ -13,6 +13,8 @@ class EventController extends Controller
     {
         $events = Event::all();
 
+//        dd($events->find('72')->category()->create(['name' => 'News', 'description'=> 'News category']));
+//        dd($events->find('72')->category()->toggle([7, 9]));
         return view('events.index', [
             'events' => $events
         ]);
@@ -20,18 +22,23 @@ class EventController extends Controller
 
     public function create(Request $request)
     {
-        $userId = $request->input('user_id');
-        $user = User::query()->findOrFail($userId);
+        $data = $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'notes' => ['required', 'string'],
+            'dt_start' => ['date'],
+            'dt_end' => ['date']
+        ]);
+        $user = User::query()->findOrFail($data['user_id']);
 
         $user->events()->create([
-            'user_id' => $userId,
-            'title' => 'Title 1',
-            'notes' => 'Notes 1',
-            'dt_start' => '01.02.2024',
-            'dt_end' => '02.02.2024'
+            'user_id' => $data['user_id'],
+            'title' => $data['title'],
+            'notes' => $data['notes'],
+            'dt_start' => $data['dt_start'],
+            'dt_end' => $data['dt_end']
         ]);
-        return Redirect::route('events.index');
-
+        return back()->with('success', 'Event created successfully.');
 
     }
 
@@ -47,17 +54,25 @@ class EventController extends Controller
         ]);
     }
 
-    public function update($id)
+    public function update(Request $request)
     {
-        $event = Event::query()->findOrFail($id);
-        $event->update([
-            'title' => 'Title 10',
-            'notes' => 'Notes 10',
-            'dt_start' => '10.02.2024',
-            'dt_end' => '11.02.2024',
-        ]);
 
-        return Redirect::route('events.index');
+        $data = $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'notes' => ['required', 'string'],
+            'dt_start' => ['date'],
+            'dt_end' => ['date']
+        ]);
+        $user = User::query()->findOrFail($data['user_id']);
+
+        $user->events()->update([
+            'title' => $data['title'],
+            'notes' => $data['notes'],
+            'dt_start' => $data['dt_start'],
+            'dt_end' => $data['dt_end']
+        ]);
+        return back()->with('success', 'Event updated successfully.');
     }
 
     public function delete($id)

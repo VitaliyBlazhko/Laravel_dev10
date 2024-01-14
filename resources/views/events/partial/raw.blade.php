@@ -3,6 +3,9 @@
     <td>{{$event->user_id}}</td>
     <td>{{$event->title}}</td>
     <td>{{$event->notes}}</td>
+    <td>@foreach($event->category as $category)
+        {{ $category->name }} <br>
+    @endforeach</td>
     <td>{{$event->dt_start}}</td>
     <td>{{$event->dt_end}}</td>
     <td>{{$event->created_at}}</td>

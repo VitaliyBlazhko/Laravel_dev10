@@ -12,6 +12,20 @@
                 <th scope="col">Actions</th>
             </tr>
             </thead>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <tbody>
             <tr>
                 <td>
@@ -20,10 +34,15 @@
                     <h5>{{ $user->password }}</h5>
                 </td>
                 <td>
-                    <form action="{{ route('users.update', $user->id) }}" method="POST">
+                    <form method="POST" action="{{ route('users.update') }}">
                         @csrf
-                        @method('Post')
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <label>
+                            <input type="hidden" name="id" value="{{ $user->id }}">
+                            <input type="text" name="name" placeholder="Name">
+                            <input type="email" name="email" placeholder="Email">
+                            <input type="password" name="password" placeholder="Password">
+                            <input type="submit" value="Update" >
+                        </label>
                     </form>
 
                     <form action="{{ route('users.delete', $user->id) }}" method="POST">
