@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
 class EventController extends Controller
@@ -45,6 +46,7 @@ class EventController extends Controller
     public function item($id)
     {
         $event = Event::findOrFail($id);
+        $this->authorize('delete-event', $event);
         $userId = $event->user_id;
         $user = User::query()->findOrFail($userId);
 
@@ -78,7 +80,7 @@ class EventController extends Controller
     public function delete($id)
     {
 
-        $event = Event::query()->find($id)->delete();
+        $event = Event::query()->findOrFail($id)->delete();
 
         return Redirect::route('events.index');
     }

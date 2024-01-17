@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\OAuth\SocialController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,14 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('auth.login_form');
+        $facebookLink = 'https://www.facebook.com/v18.0/dialog/oauth?';
+        $parameters = [
+            'client_id' => env('APP_ID'),
+            'redirect_uri' => env('REDIR_URI_FACEBOOK')
+        ];
+        $facebookLink .= http_build_query($parameters);
+
+        return view('auth.login_form', ['facebookLink' => $facebookLink]);
     }
 
     public function authenticator(Request $request)
@@ -27,4 +35,12 @@ class AuthController extends Controller
         return back()->withErrors(['email' => 'Email is not correct',
             'password' => 'Password is not correct']);
     }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+        $request->session()->regenerate();
+        return redirect()->route('home');
+    }
+
 }

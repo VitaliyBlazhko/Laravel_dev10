@@ -27,5 +27,6 @@
             <input type="password" name="password_confirmation" placeholder="Password">
             <input type="submit" value="Register" >
         </label>
+        <a href="{{ route('login') }}">Login</a>
     </form>
 @endsection

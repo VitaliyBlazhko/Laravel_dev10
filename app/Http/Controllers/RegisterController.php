@@ -31,7 +31,7 @@ class RegisterController extends Controller
         ]);
 
 
-        return back()->with('success', 'User registered successfully.');
+        return back()->with('success', 'User registered successfully, please login');
 
 
     }

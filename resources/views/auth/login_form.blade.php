@@ -26,6 +26,7 @@
             <input type="submit" value="Login" >
 
         </label>
+        <a href="{{ $facebookLink }}">Login Facebook</a>
         <a href="{{ route('register.index') }}">Registration</a>
     </form>
 @endsection
