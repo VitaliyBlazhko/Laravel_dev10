@@ -54,14 +54,21 @@ class SocialController extends Controller
             ]);
 
             $userData = json_decode($userResponse->getBody(), true);
-//            dd($userData);
-            $user = User::where('email', $userData['email'])->first();
+            $user = null;
+            if (isset($userData['id'])) {
+                $user = User::where('facebook_id', $userData['id'])->first();
+            }
+
+            if (!$user && isset($userData['email'])) {
+                $user = User::where('email', $userData['email'])->first();
+            }
 
             if (!$user) {
                 $user = User::create([
                     'name' => $userData['name'],
-                    'email' => $userData['email'],
-                    'password' => Hash::make(rand(000000, 9999999))
+                    'email' => $userData['email'] ?? ($userData['id'] . '@example.com'),
+                    'password' => Hash::make(rand(1111111, 9999999) . $userData['id']),
+                    'facebook_id' => $userData['id'],
                 ]);
             }
 

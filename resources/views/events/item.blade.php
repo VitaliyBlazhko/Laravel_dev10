@@ -56,9 +56,9 @@
                 <div class="btn-group" role="group" aria-label="Event Actions">
 
                     @can('delete-event', $event)
-                    <form action="{{ route('event.delete', $event->id) }}" method="POST">
+                    <form action="{{ route('event.delete', $event->id) }}" method="GET">
                         @csrf
-                        @method('POST')
+                        @method('GET')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     @endcan

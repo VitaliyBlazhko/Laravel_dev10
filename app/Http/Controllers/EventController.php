@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventFormRequest;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,15 +22,9 @@ class EventController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(EventFormRequest $request)
     {
-        $data = $request->validate([
-            'user_id' => ['required', 'exists:users,id'],
-            'title' => ['required', 'string', 'max:255'],
-            'notes' => ['required', 'string'],
-            'dt_start' => ['date'],
-            'dt_end' => ['date']
-        ]);
+        $data = $request->validated();
         $user = User::query()->findOrFail($data['user_id']);
 
         $user->events()->create([
@@ -56,16 +51,10 @@ class EventController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(EventFormRequest $request)
     {
 
-        $data = $request->validate([
-            'user_id' => ['required', 'exists:users,id'],
-            'title' => ['required', 'string', 'max:255'],
-            'notes' => ['required', 'string'],
-            'dt_start' => ['date'],
-            'dt_end' => ['date']
-        ]);
+        $data = $request->validated();
         $user = User::query()->findOrFail($data['user_id']);
 
         $user->events()->update([

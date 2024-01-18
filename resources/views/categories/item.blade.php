@@ -45,9 +45,9 @@
             </form>
             <div class="btn-group" role="group" aria-label="Category Actions">
 
-                <form action="{{ route('categories.delete', $category->id) }}" method="POST">
+                <form action="{{ route('categories.delete', $category->id) }}" method="GET">
                     @csrf
-                    @method('POST')
+                    @method('GET')
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
         </div>

@@ -45,9 +45,9 @@
                         </label>
                     </form>
 
-                    <form action="{{ route('users.delete', $user->id) }}" method="POST">
+                    <form action="{{ route('users.delete', $user->id) }}" method="GET">
                         @csrf
-                        @method('Post')
+                        @method('GET')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
