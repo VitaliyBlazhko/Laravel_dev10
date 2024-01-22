@@ -1,0 +1,62 @@
+
+GET http://localhost/api/events
+
+<> 2024-01-22T210624.200.json
+<> 2024-01-22T205723.200.json
+<> 2024-01-22T112840.200.json
+<> 2024-01-22T112705.200.json
+<> 2024-01-21T225352.200.json
+#####
+
+GET http://localhost/api/event/88
+
+<> 2024-01-22T112912.200.json
+
+#####
+
+GET http://localhost/api/user/92
+####
+
+
+GET http://localhost/api/users
+
+<> 2024-01-22T210640.200.json
+<> 2024-01-22T210559.200.json
+<> 2024-01-22T210547.200.json
+<> 2024-01-22T205645.200.json
+
+####
+
+PUT http://localhost/api/event/update/85
+Content-Type: application/json
+
+{
+"user_id" :"92",
+"title" : "title85",
+"notes" : "notes85",
+"dt_start" : "2022-02-01",
+"dt_end" : "2022-02-01"
+}
+
+#####
+
+GET http://localhost/api/event/delete/90
+####
+
+PUT http://localhost/api/user/update/85
+Content-Type: application/json
+
+{
+  "name" : "Apitester",
+  "email" : "pitester@qa.com",
+  "password" : "123456"
+}
+
+<> 2024-01-22T204002.200.json
+<> 2024-01-22T203202.403.html
+<> 2024-01-22T202927.403.html
+#####
+
+GET http://localhost/api/user/delete/95
+
+<> 2024-01-22T203016.500.html
