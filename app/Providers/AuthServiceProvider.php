@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         Gate::define('delete-event', function (User $user, Event $event){
 
-            return $user->role->id == 1;
+            return $user->role->id == 2;
         });
 
     }

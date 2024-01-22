@@ -41,7 +41,7 @@ class EventController extends Controller
     public function item($id)
     {
         $event = Event::findOrFail($id);
-        $this->authorize('delete-event', $event);
+//        $this->authorize('delete-event', $event);
         $userId = $event->user_id;
         $user = User::query()->findOrFail($userId);
 

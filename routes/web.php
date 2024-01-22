@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('/events')->group(function () {
         Route::get('/', [EventController::class, 'index'])->name('events.index');
-        Route::any('/create', [EventController::class, 'create'])->name('event.create');
+        Route::post('/create', [EventController::class, 'create'])->name('event.create');
         Route::any('/update', [EventController::class, 'update'])->name('event.update');
         Route::any('/delete/{id}', [EventController::class, 'delete'])->name('event.delete');
         Route::any('/{id}', [EventController::class, 'item'])->name('event.item');
